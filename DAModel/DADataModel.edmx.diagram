@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5d7bfcdb4ad34923a39d2829f49f52c8" Name="Diagram1" ZoomLevel="63">
+        <EntityTypeShape EntityType="DAMesajModel.Alici" Width="1.5" PointX="5.5" PointY="0.5" />
+        <EntityTypeShape EntityType="DAMesajModel.Alici_MailGrubu" Width="1.5" PointX="3.25" PointY="0.5" />
+        <EntityTypeShape EntityType="DAMesajModel.AtilacakMail" Width="1.5" PointX="5.75" PointY="3.125" />
+        <EntityTypeShape EntityType="DAMesajModel.Keyword" Width="1.5" PointX="3.375" PointY="3.125" />
+        <EntityTypeShape EntityType="DAMesajModel.MailGrubu" Width="1.5" PointX="1" PointY="0.5" />
+        <EntityTypeShape EntityType="DAMesajModel.MailGrubu_Keyword" Width="1.5" PointX="0.875" PointY="3.125" />
+        <AssociationConnector Association="DAMesajModel.FK_ALICI_GRUP_ALICI" />
+        <AssociationConnector Association="DAMesajModel.FK_ALICI_GRUP_GRUP" />
+        <AssociationConnector Association="DAMesajModel.FK_KEYWORD_MAIL" />
+        <AssociationConnector Association="DAMesajModel.FK_MailGrubu_Keyword_TOKEYWORD" />
+        <AssociationConnector Association="DAMesajModel.FK_MailGrubu_Keyword_TOMAILGRUBU" />
+        <EntityTypeShape EntityType="DAMesajModel.sysdiagram" Width="1.5" PointX="5.375" PointY="5.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

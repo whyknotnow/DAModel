@@ -1,0 +1,419 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DAMesajModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Alici">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdSoyad" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="MailAdres" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Alici_MailGrubu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AliciId" Type="int" Nullable="false" />
+          <Property Name="GrupId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AtilacakMail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MailName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="MailPath" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Keyword">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Keyword" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MailId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MailGrubu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GrupAd" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MailGrubu_Keyword">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MailGrubuId" Type="int" Nullable="false" />
+          <Property Name="KeywordId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_ALICI_GRUP_ALICI">
+          <End Role="Alici" Type="Self.Alici" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Alici_MailGrubu" Type="Self.Alici_MailGrubu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alici">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Alici_MailGrubu">
+              <PropertyRef Name="AliciId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ALICI_GRUP_GRUP">
+          <End Role="MailGrubu" Type="Self.MailGrubu" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Alici_MailGrubu" Type="Self.Alici_MailGrubu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MailGrubu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Alici_MailGrubu">
+              <PropertyRef Name="GrupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KEYWORD_MAIL">
+          <End Role="AtilacakMail" Type="Self.AtilacakMail" Multiplicity="1" />
+          <End Role="Keyword" Type="Self.Keyword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtilacakMail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Keyword">
+              <PropertyRef Name="MailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MailGrubu_Keyword_TOKEYWORD">
+          <End Role="Keyword" Type="Self.Keyword" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MailGrubu_Keyword" Type="Self.MailGrubu_Keyword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keyword">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MailGrubu_Keyword">
+              <PropertyRef Name="KeywordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MailGrubu_Keyword_TOMAILGRUBU">
+          <End Role="MailGrubu" Type="Self.MailGrubu" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MailGrubu_Keyword" Type="Self.MailGrubu_Keyword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MailGrubu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MailGrubu_Keyword">
+              <PropertyRef Name="MailGrubuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DAMesajModelStoreContainer">
+          <EntitySet Name="Alici" EntityType="Self.Alici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Alici_MailGrubu" EntityType="Self.Alici_MailGrubu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AtilacakMail" EntityType="Self.AtilacakMail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Keyword" EntityType="Self.Keyword" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MailGrubu" EntityType="Self.MailGrubu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MailGrubu_Keyword" EntityType="Self.MailGrubu_Keyword" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ALICI_GRUP_ALICI" Association="Self.FK_ALICI_GRUP_ALICI">
+            <End Role="Alici" EntitySet="Alici" />
+            <End Role="Alici_MailGrubu" EntitySet="Alici_MailGrubu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ALICI_GRUP_GRUP" Association="Self.FK_ALICI_GRUP_GRUP">
+            <End Role="MailGrubu" EntitySet="MailGrubu" />
+            <End Role="Alici_MailGrubu" EntitySet="Alici_MailGrubu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KEYWORD_MAIL" Association="Self.FK_KEYWORD_MAIL">
+            <End Role="AtilacakMail" EntitySet="AtilacakMail" />
+            <End Role="Keyword" EntitySet="Keyword" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MailGrubu_Keyword_TOKEYWORD" Association="Self.FK_MailGrubu_Keyword_TOKEYWORD">
+            <End Role="Keyword" EntitySet="Keyword" />
+            <End Role="MailGrubu_Keyword" EntitySet="MailGrubu_Keyword" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MailGrubu_Keyword_TOMAILGRUBU" Association="Self.FK_MailGrubu_Keyword_TOMAILGRUBU">
+            <End Role="MailGrubu" EntitySet="MailGrubu" />
+            <End Role="MailGrubu_Keyword" EntitySet="MailGrubu_Keyword" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DAMesajModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DAMesajEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Alicis" EntityType="DAMesajModel.Alici" />
+          <EntitySet Name="Alici_MailGrubu" EntityType="DAMesajModel.Alici_MailGrubu" />
+          <EntitySet Name="AtilacakMails" EntityType="DAMesajModel.AtilacakMail" />
+          <EntitySet Name="Keywords" EntityType="DAMesajModel.Keyword" />
+          <EntitySet Name="MailGrubus" EntityType="DAMesajModel.MailGrubu" />
+          <EntitySet Name="MailGrubu_Keyword" EntityType="DAMesajModel.MailGrubu_Keyword" />
+          <AssociationSet Name="FK_ALICI_GRUP_ALICI" Association="DAMesajModel.FK_ALICI_GRUP_ALICI">
+            <End Role="Alici" EntitySet="Alicis" />
+            <End Role="Alici_MailGrubu" EntitySet="Alici_MailGrubu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ALICI_GRUP_GRUP" Association="DAMesajModel.FK_ALICI_GRUP_GRUP">
+            <End Role="MailGrubu" EntitySet="MailGrubus" />
+            <End Role="Alici_MailGrubu" EntitySet="Alici_MailGrubu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KEYWORD_MAIL" Association="DAMesajModel.FK_KEYWORD_MAIL">
+            <End Role="AtilacakMail" EntitySet="AtilacakMails" />
+            <End Role="Keyword" EntitySet="Keywords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MailGrubu_Keyword_TOKEYWORD" Association="DAMesajModel.FK_MailGrubu_Keyword_TOKEYWORD">
+            <End Role="Keyword" EntitySet="Keywords" />
+            <End Role="MailGrubu_Keyword" EntitySet="MailGrubu_Keyword" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MailGrubu_Keyword_TOMAILGRUBU" Association="DAMesajModel.FK_MailGrubu_Keyword_TOMAILGRUBU">
+            <End Role="MailGrubu" EntitySet="MailGrubus" />
+            <End Role="MailGrubu_Keyword" EntitySet="MailGrubu_Keyword" />
+          </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="DAMesajModel.sysdiagram" />
+        </EntityContainer>
+        <EntityType Name="Alici">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdSoyad" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MailAdres" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Alici_MailGrubu" Relationship="DAMesajModel.FK_ALICI_GRUP_ALICI" FromRole="Alici" ToRole="Alici_MailGrubu" />
+        </EntityType>
+        <EntityType Name="Alici_MailGrubu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AliciId" Type="Int32" Nullable="false" />
+          <Property Name="GrupId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Alici" Relationship="DAMesajModel.FK_ALICI_GRUP_ALICI" FromRole="Alici_MailGrubu" ToRole="Alici" />
+          <NavigationProperty Name="MailGrubu" Relationship="DAMesajModel.FK_ALICI_GRUP_GRUP" FromRole="Alici_MailGrubu" ToRole="MailGrubu" />
+        </EntityType>
+        <EntityType Name="AtilacakMail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MailName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MailPath" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Keywords" Relationship="DAMesajModel.FK_KEYWORD_MAIL" FromRole="AtilacakMail" ToRole="Keyword" />
+        </EntityType>
+        <EntityType Name="Keyword">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Keyword1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MailId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AtilacakMail" Relationship="DAMesajModel.FK_KEYWORD_MAIL" FromRole="Keyword" ToRole="AtilacakMail" />
+          <NavigationProperty Name="MailGrubu_Keyword" Relationship="DAMesajModel.FK_MailGrubu_Keyword_TOKEYWORD" FromRole="Keyword" ToRole="MailGrubu_Keyword" />
+        </EntityType>
+        <EntityType Name="MailGrubu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GrupAd" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Alici_MailGrubu" Relationship="DAMesajModel.FK_ALICI_GRUP_GRUP" FromRole="MailGrubu" ToRole="Alici_MailGrubu" />
+          <NavigationProperty Name="MailGrubu_Keyword" Relationship="DAMesajModel.FK_MailGrubu_Keyword_TOMAILGRUBU" FromRole="MailGrubu" ToRole="MailGrubu_Keyword" />
+        </EntityType>
+        <EntityType Name="MailGrubu_Keyword">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="MailGrubuId" Type="Int32" Nullable="false" />
+          <Property Name="KeywordId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Keyword" Relationship="DAMesajModel.FK_MailGrubu_Keyword_TOKEYWORD" FromRole="MailGrubu_Keyword" ToRole="Keyword" />
+          <NavigationProperty Name="MailGrubu" Relationship="DAMesajModel.FK_MailGrubu_Keyword_TOMAILGRUBU" FromRole="MailGrubu_Keyword" ToRole="MailGrubu" />
+        </EntityType>
+        <Association Name="FK_ALICI_GRUP_ALICI">
+          <End Type="DAMesajModel.Alici" Role="Alici" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DAMesajModel.Alici_MailGrubu" Role="Alici_MailGrubu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alici">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Alici_MailGrubu">
+              <PropertyRef Name="AliciId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ALICI_GRUP_GRUP">
+          <End Type="DAMesajModel.MailGrubu" Role="MailGrubu" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DAMesajModel.Alici_MailGrubu" Role="Alici_MailGrubu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MailGrubu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Alici_MailGrubu">
+              <PropertyRef Name="GrupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KEYWORD_MAIL">
+          <End Type="DAMesajModel.AtilacakMail" Role="AtilacakMail" Multiplicity="1" />
+          <End Type="DAMesajModel.Keyword" Role="Keyword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtilacakMail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Keyword">
+              <PropertyRef Name="MailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MailGrubu_Keyword_TOKEYWORD">
+          <End Type="DAMesajModel.Keyword" Role="Keyword" Multiplicity="1" />
+          <End Type="DAMesajModel.MailGrubu_Keyword" Role="MailGrubu_Keyword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keyword">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MailGrubu_Keyword">
+              <PropertyRef Name="KeywordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MailGrubu_Keyword_TOMAILGRUBU">
+          <End Type="DAMesajModel.MailGrubu" Role="MailGrubu" Multiplicity="1" />
+          <End Type="DAMesajModel.MailGrubu_Keyword" Role="MailGrubu_Keyword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MailGrubu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MailGrubu_Keyword">
+              <PropertyRef Name="MailGrubuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DAMesajModelStoreContainer" CdmEntityContainer="DAMesajEntities">
+          <EntitySetMapping Name="Alicis">
+            <EntityTypeMapping TypeName="DAMesajModel.Alici">
+              <MappingFragment StoreEntitySet="Alici">
+                <ScalarProperty Name="MailAdres" ColumnName="MailAdres" />
+                <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Alici_MailGrubu">
+            <EntityTypeMapping TypeName="DAMesajModel.Alici_MailGrubu">
+              <MappingFragment StoreEntitySet="Alici_MailGrubu">
+                <ScalarProperty Name="GrupId" ColumnName="GrupId" />
+                <ScalarProperty Name="AliciId" ColumnName="AliciId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AtilacakMails">
+            <EntityTypeMapping TypeName="DAMesajModel.AtilacakMail">
+              <MappingFragment StoreEntitySet="AtilacakMail">
+                <ScalarProperty Name="MailPath" ColumnName="MailPath" />
+                <ScalarProperty Name="MailName" ColumnName="MailName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Keywords">
+            <EntityTypeMapping TypeName="DAMesajModel.Keyword">
+              <MappingFragment StoreEntitySet="Keyword">
+                <ScalarProperty Name="MailId" ColumnName="MailId" />
+                <ScalarProperty Name="Keyword1" ColumnName="Keyword" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MailGrubus">
+            <EntityTypeMapping TypeName="DAMesajModel.MailGrubu">
+              <MappingFragment StoreEntitySet="MailGrubu">
+                <ScalarProperty Name="GrupAd" ColumnName="GrupAd" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MailGrubu_Keyword">
+            <EntityTypeMapping TypeName="DAMesajModel.MailGrubu_Keyword">
+              <MappingFragment StoreEntitySet="MailGrubu_Keyword">
+                <ScalarProperty Name="KeywordId" ColumnName="KeywordId" />
+                <ScalarProperty Name="MailGrubuId" ColumnName="MailGrubuId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DAMesajModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAModel.Data", "DAModel\DAModel.Data.csproj", "{EBE26FCA-2BFE-48B8-A47A-7C0EEDA8A73C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAModel.Forms", "DAModel.Forms\DAModel.Forms.csproj", "{128150EF-EF38-4404-ACA1-9E56615A45AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAModel.ConsoleApp", "DAModel.ConsoleApp\DAModel.ConsoleApp.csproj", "{65C29D95-A702-4AAB-8CBA-7CF7BF32DAB5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EBE26FCA-2BFE-48B8-A47A-7C0EEDA8A73C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBE26FCA-2BFE-48B8-A47A-7C0EEDA8A73C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBE26FCA-2BFE-48B8-A47A-7C0EEDA8A73C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBE26FCA-2BFE-48B8-A47A-7C0EEDA8A73C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{128150EF-EF38-4404-ACA1-9E56615A45AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{128150EF-EF38-4404-ACA1-9E56615A45AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{128150EF-EF38-4404-ACA1-9E56615A45AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{128150EF-EF38-4404-ACA1-9E56615A45AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65C29D95-A702-4AAB-8CBA-7CF7BF32DAB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65C29D95-A702-4AAB-8CBA-7CF7BF32DAB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65C29D95-A702-4AAB-8CBA-7CF7BF32DAB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65C29D95-A702-4AAB-8CBA-7CF7BF32DAB5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
