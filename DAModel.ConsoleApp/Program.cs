@@ -71,7 +71,7 @@ namespace DAModel.ConsoleApp
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential("firat.caglar.akbulut@gmail.com", "119397000")
+                Credentials = new NetworkCredential("firat.caglar.akbulut@gmail.com", "")
             };
             return smtp;
         }
